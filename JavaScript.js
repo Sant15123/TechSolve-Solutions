@@ -32,8 +32,12 @@ document.addEventListener("DOMContentLoaded", function () {
             this.classList.add("active");
         });
 
-        item.addEventListener("mouseleave", function () {
-            this.classList.remove("active");
+        item.addEventListener("mouseleave", function (event) {
+            // Si el mouse sigue dentro del li o su submenú, no quitar la clase
+            if (!this.contains(event.relatedTarget)) {
+                this.classList.remove("active");
+            }
         });
     });
 });
+
