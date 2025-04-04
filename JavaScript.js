@@ -28,16 +28,21 @@ document.addEventListener("DOMContentLoaded", function () {
     const menuItems = document.querySelectorAll(".nav-menu > li");
 
     menuItems.forEach(item => {
+        let timeout;
+
         item.addEventListener("mouseenter", function () {
+            clearTimeout(timeout); // Evita que el menú se oculte si el usuario vuelve rápido
             this.classList.add("active");
         });
 
         item.addEventListener("mouseleave", function (event) {
-            // Si el mouse sigue dentro del li o su submenú, no quitar la clase
-            if (!this.contains(event.relatedTarget)) {
-                this.classList.remove("active");
-            }
+            timeout = setTimeout(() => {
+                if (!this.contains(document.activeElement)) {
+                    this.classList.remove("active");
+                }
+            }, 100); // Ajusta el tiempo de espera según necesites
         });
     });
 });
+
 
